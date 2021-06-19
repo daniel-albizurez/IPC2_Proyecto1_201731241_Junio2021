@@ -72,10 +72,10 @@ class ListaEnLista:
             auxY = auxY.derecha
             contY += 1 """
 
-        while auxX and auxX.y < y-1 and auxX.abajo != None:
+        while auxX and auxX.y < y and auxX.abajo != None:
             auxX = auxX.abajo
 
-        while auxY and auxY.x < x-1 and auxY.derecha != None:
+        while auxY and auxY.x < x and auxY.derecha != None:
             auxY = auxY.derecha
 
         if auxX and auxX.y < y:
@@ -84,6 +84,7 @@ class ListaEnLista:
             auxX.abajo = temp
         elif auxX and auxX.y > y:
             temp.arriba = auxX.arriba
+            if auxX.arriba: auxX.arriba.abajo = temp
             temp.abajo = auxX
             auxX.arriba = temp
         elif auxX and auxX.y == y:
@@ -91,6 +92,7 @@ class ListaEnLista:
 
         if auxY and  auxY.x < x:
             temp.derecha = auxY.derecha
+            if auxY.derecha: auxY.derecha.abajo = temp
             temp.izquierda = auxY
             auxY.derecha = temp
         elif auxY and  auxY.x > x:

@@ -156,7 +156,7 @@ class ListaEnLista:
         tempXHead = listaX.head
         #Prueba de busqueda a partir de X
 
-        print("\n Buscado en X")
+#        print("\n Buscado en X")
         cont = 0
         while cont < limX:
             while tempXHead:

@@ -156,20 +156,7 @@ class ListaEnLista:
         tempYHead = listaY.head
         cont = 0
         string = "digraph {node [shape = box]"
-        """ while cont < limY:
-            while tempYHead and tempYHead.posicion == cont:
-                temp = tempYHead.primero
-                contX = 0
-                while temp != None:
-                    string += "\n\""+ str(temp.x) + "," + str(temp.y) +"\" [label=\"["+ str(temp.x) + "," + str(temp.y) +"] "+str(temp.data) + "\", group= "+str(tempYHead.posicion)+"]\n"
-                    if temp.arriba: string+= "\"" + str(temp.arriba.x) + "," + str(temp.arriba.y) + "\"" + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
-                    if temp.abajo: string+= "\"" + str(temp.abajo.x) + "," + str(temp.abajo.y) +"\""  + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
-                    if temp.derecha: string+= "\"" + str(temp.derecha.x) + "," + str(temp.derecha.y) + "\"" + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
-                    if temp.izquierda: string+= "\"" + str(temp.izquierda.x) + "," + str(temp.izquierda.y) + "\""  + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
-                    contX += 1
-                    temp = temp.derecha
-                tempYHead = tempYHead.next
-                cont += 1 """
+
         for i in range(0, limX+1):
             rank = "{ rank = same;"
             for j in range(0, limY+1):
@@ -189,11 +176,6 @@ class ListaEnLista:
                     string+= tag + " -> " + "\"" + str(i-1) + "," + str(j) + "\"\n"
                 if  i<limX:    
                     string+= tag + " -> " + "\"" + str(i+1) + "," + str(j) + "\"\n"
-                """ if temp:
-                    if temp.arriba: string+= "\"" + str(temp.arriba.x) + "," + str(temp.arriba.y) + "\"" + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
-                    if temp.abajo: string+= "\"" + str(temp.abajo.x) + "," + str(temp.abajo.y) +"\""  + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
-                    if temp.derecha: string+= "\"" + str(temp.derecha.x) + "," + str(temp.derecha.y) + "\"" + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
-                    if temp.izquierda: string+= "\"" + str(temp.izquierda.x) + "," + str(temp.izquierda.y) + "\""  + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n" """
                 rank += "\""+ str(i) + "," + str(j) +"\"; "
             string += rank +"}"
         string += "}"  + "\n"
@@ -203,7 +185,7 @@ class ListaEnLista:
         tempXHead = listaX.head
         #Prueba de busqueda a partir de X
 
-#        print("\n Buscado en X")
+        #print("\n Buscado en X")
         cont = 0
         while cont < limX:
             while tempXHead:

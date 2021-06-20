@@ -43,31 +43,31 @@ class Juego:
         if pieza == 1:
             rangoX = 2
             rangoY = 4
-            permitido &= x+rangoX < self.limX
-            permitido &= y+rangoY < self.limY
+            permitido &= x+rangoX <= self.limX
+            permitido &= y+rangoY <= self.limY
             for i in range(y, y+rangoY):
                 permitido &= self.tableroMatriz.buscar(x, i) == None
                 permitido &= self.evaluarAlrededor(x, i, turno)
-            for i in range(x, x+rangoX):
-                permitido &= self.tableroMatriz.buscar(i, y+3) == None            
-                permitido &= self.evaluarAlrededor(i, y+3, turno)
+            #for i in range(x, x+rangoX):
+            permitido &= self.tableroMatriz.buscar(x+1, y+3) == None            
+            permitido &= self.evaluarAlrededor(x+1, y+3, turno)
         elif pieza == 2:
             permitido &= x>0
-            rangoX = x
-            x = x-1
+            #rangoX = x
+            #x = x-1
             rangoY = 4
-            permitido &= x+rangoX < self.limX
-            permitido &= y+rangoY < self.limY
+            permitido &= x+rangoX <= self.limX
+            permitido &= y+rangoY <= self.limY
             for i in range(y, y+rangoY):
                 permitido &= self.tableroMatriz.buscar(x, i) == None
                 permitido &= self.evaluarAlrededor(x, i, turno)
-            for i in range(x, x+rangoX):
-                permitido &= self.tableroMatriz.buscar(i, y+3) == None            
-                permitido &= self.evaluarAlrededor(i, y+3, turno)
+            #for i in range(x, x+rangoX):
+            permitido &= self.tableroMatriz.buscar(x-1, y+3) == None            
+            permitido &= self.evaluarAlrededor(x-1, y+3, turno)
         elif pieza == 3:
             rangoX = 4
-            permitido &= x+rangoX < self.limX
-            permitido &= y+rangoY < self.limY
+            permitido &= x+rangoX <= self.limX
+            permitido &= y+rangoY <= self.limY
             for i in range(x, x+rangoX):
                 permitido &= self.tableroMatriz.buscar(i, y) == None            
                 permitido &= self.evaluarAlrededor(i, y, turno)
@@ -77,10 +77,10 @@ class Juego:
                     permitido &= self.tableroMatriz.buscar(i, j) == None
                     permitido &= self.evaluarAlrededor(i, j, turno)
         elif pieza == 5:
-            permitido &= x>0 and y>0
+            permitido &= y>0
 
             for i in range(x+1, x+3):
-                for j in range(y, y+2):
+                for j in range(y-1, y+1):
                     permitido &= self.tableroMatriz.buscar(i, j) == None
                     permitido &= self.evaluarAlrededor(i, j, turno)
             permitido &= self.tableroMatriz.buscar(x, y) == None
@@ -89,8 +89,8 @@ class Juego:
             permitido &= self.evaluarAlrededor(x+3, y, turno)
         elif pieza == 6:
             rangoY = 4
-            permitido &= x+rangoX < self.limX
-            permitido &= y+rangoY < self.limY
+            permitido &= x+rangoX <= self.limX
+            permitido &= y+rangoY <= self.limY
             for i in range(y, y+rangoY):
                 permitido &= self.tableroMatriz.buscar(x, i) == None            
                 permitido &= self.evaluarAlrededor(x, i, turno)
@@ -99,9 +99,10 @@ class Juego:
             if pieza == 1:
                 for i in range(y, y+4):
                     self.colocarEnTabla(x, i, tablero)
-                for i in range(x, x+2):
+                """ for i in range(x, x+2):
                     #self.tableroMatriz.agregar(i, y+3, turno)
-                    self.colocarEnTabla(i, y+3, tablero)
+                    self.colocarEnTabla(i, y+3, tablero) """
+                self.colocarEnTabla(x+1, y+3, tablero)
             elif pieza == 2:
                 for i in range(y, y+4):
                     """ self.tableroMatriz.agregar(x+1, i, turno)
@@ -109,15 +110,16 @@ class Juego:
                     tablero.item(i,x+1).setBackground(QtGui.QColor(self.jugadorEnTurno.color))
                     tablero.item(i,x+1).setForeground(QtGui.QColor(self.jugadorEnTurno.color))
                     tablero.item(i,x+1).setFlags(QtCore.Qt.ItemIsEnabled) """
-                    self.colocarEnTabla(x+1, i, tablero)
-                for i in range(x, x+2):
+                    self.colocarEnTabla(x, i, tablero)
+                """ for i in range(x, x+2):
                     self.colocarEnTabla(i, y+3, tablero)
-                    """ self.tableroMatriz.agregar(i, y+3, turno)
+                    self.tableroMatriz.agregar(i, y+3, turno)
                     tablero.setItem(y+3,i,QTableWidgetItem(turno))
                     tablero.setItem(y+3,i,QTableWidgetItem(turno))
                     tablero.item(y+3,i).setBackground(QtGui.QColor(self.jugadorEnTurno.color))
                     tablero.item(y+3,i).setForeground(QtGui.QColor(self.jugadorEnTurno.color))
                     tablero.item(y+3,i).setFlags(QtCore.Qt.ItemIsEnabled) """
+                self.colocarEnTabla(x-1, y+3, tablero)
             elif pieza == 3:
                 for i in range(x, x+rangoX):
                     self.colocarEnTabla(i, y, tablero)

@@ -197,10 +197,10 @@ class Matriz:
     def buscar(self, x, y) -> NodoLista:
         listaTemporal = ListaEnLista()
         temp = listaTemporal.buscar(self.listaX, x, y, self.x, self.y)
-        if temp:
+        """ if temp:
             print(temp.data)
         else:
-            print("Coordenada inexistente")
+            print("Coordenada inexistente") """
         return temp
 
     def __getitem__(self, key):

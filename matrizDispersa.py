@@ -152,6 +152,53 @@ class ListaEnLista:
                 tempYHead = tempYHead.next
                 cont += 1
 
+    def generarDot(self, listaX, listaY, limX, limY):
+        tempYHead = listaY.head
+        cont = 0
+        string = "digraph {node [shape = box]"
+        """ while cont < limY:
+            while tempYHead and tempYHead.posicion == cont:
+                temp = tempYHead.primero
+                contX = 0
+                while temp != None:
+                    string += "\n\""+ str(temp.x) + "," + str(temp.y) +"\" [label=\"["+ str(temp.x) + "," + str(temp.y) +"] "+str(temp.data) + "\", group= "+str(tempYHead.posicion)+"]\n"
+                    if temp.arriba: string+= "\"" + str(temp.arriba.x) + "," + str(temp.arriba.y) + "\"" + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
+                    if temp.abajo: string+= "\"" + str(temp.abajo.x) + "," + str(temp.abajo.y) +"\""  + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
+                    if temp.derecha: string+= "\"" + str(temp.derecha.x) + "," + str(temp.derecha.y) + "\"" + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
+                    if temp.izquierda: string+= "\"" + str(temp.izquierda.x) + "," + str(temp.izquierda.y) + "\""  + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
+                    contX += 1
+                    temp = temp.derecha
+                tempYHead = tempYHead.next
+                cont += 1 """
+        for i in range(0, limX+1):
+            rank = "{ rank = same;"
+            for j in range(0, limY+1):
+                temp = self.buscar(listaX, i, j, limX, limY)
+                data = ""
+                if temp:
+                    data = temp.data
+                else:
+                    data = "-"
+                    tag = "\""+ str(i) + "," + str(j) +"\""
+                string += "\n" + tag + " [label=\"["+ str(i) + "," + str(j) +"] "+str(data) + "\", group= "+str(i)+"]\n"
+                if j<limY:    
+                    string+= tag + " -> " + "\"" + str(i) + "," + str(j+1) + "\"\n"
+                if j>0:    
+                    string+= tag + " -> " + "\"" + str(i) + "," + str(j-1) + "\"\n"
+                if i> 0: 
+                    string+= tag + " -> " + "\"" + str(i-1) + "," + str(j) + "\"\n"
+                if  i<limX:    
+                    string+= tag + " -> " + "\"" + str(i+1) + "," + str(j) + "\"\n"
+                """ if temp:
+                    if temp.arriba: string+= "\"" + str(temp.arriba.x) + "," + str(temp.arriba.y) + "\"" + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
+                    if temp.abajo: string+= "\"" + str(temp.abajo.x) + "," + str(temp.abajo.y) +"\""  + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
+                    if temp.derecha: string+= "\"" + str(temp.derecha.x) + "," + str(temp.derecha.y) + "\"" + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n"
+                    if temp.izquierda: string+= "\"" + str(temp.izquierda.x) + "," + str(temp.izquierda.y) + "\""  + " -> " + "\"" + str(temp.x) + "," + str(temp.y) + "\"\n" """
+                rank += "\""+ str(i) + "," + str(j) +"\"; "
+            string += rank +"}"
+        string += "}"  + "\n"
+        print(string)
+
     def buscar(self, listaX, x, y, limX, limY):
         tempXHead = listaX.head
         #Prueba de busqueda a partir de X
@@ -193,7 +240,11 @@ class Matriz:
     def mostrar(self):
         listaTemporal = ListaEnLista()
         listaTemporal.mostrar(self.listaX, self.listaY, self.x, self.y)
-    
+
+    def generarDot(self):
+        listaTemporal = ListaEnLista()
+        listaTemporal.generarDot(self.listaX, self.listaY, self.x, self.y)
+
     def buscar(self, x, y) -> NodoLista:
         listaTemporal = ListaEnLista()
         temp = listaTemporal.buscar(self.listaX, x, y, self.x, self.y)

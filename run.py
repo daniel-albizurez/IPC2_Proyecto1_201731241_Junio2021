@@ -7,13 +7,13 @@ import block
 def main():
     app = QApplication(sys.argv)
     form = ventana.App()
-    juego = block.Juego(10, 10)
+    juego = block.Juego(4, 4)
     form.spinX.setMaximum(10)
     form.spinY.setMaximum(10)
     form.spinX.setMinimum(1)
     form.spinY.setMinimum(1)
-    form.tableWidget.setRowCount(10)
-    form.tableWidget.setColumnCount(10)
+    form.tableWidget.setRowCount(4)
+    form.tableWidget.setColumnCount(4)
 
     juego.definirJugador("hola", "blue")
     juego.definirJugador("a", "yellow")
@@ -31,7 +31,7 @@ def main():
         juego.piezaActual,
         form.label_3
         ))
-    form.pushButton.clicked.connect(juego.tableroMatriz.mostrar)
+    form.pushButton.clicked.connect(juego.tableroMatriz.generarDot)
     form.show()
     app.exec_()
 

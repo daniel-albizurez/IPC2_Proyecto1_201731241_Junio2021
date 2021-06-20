@@ -157,17 +157,18 @@ class ListaEnLista:
         cont = 0
         string = "digraph {node [shape = box]"
 
-        for i in range(0, limX+1):
+        for j in range(0, limY+1):
             rank = "{ rank = same;"
-            for j in range(0, limY+1):
+            for i in range(0, limX+1):
                 temp = self.buscar(listaX, i, j, limX, limY)
                 data = ""
                 if temp:
                     data = temp.data
                 else:
                     data = "-"
-                    tag = "\""+ str(i) + "," + str(j) +"\""
-                string += "\n" + tag + " [label=\"["+ str(i) + "," + str(j) +"] "+str(data) + "\", group= "+str(i)+"]\n"
+                tag = "\""+ str(i) + "," + str(j) +"\""
+                #["+ str(i) + "," + str(j) +"] 
+                string += "\n" + tag + " [label=\""+str(data) + "\", group= "+str(i)+"]\n"
                 if j<limY:    
                     string+= tag + " -> " + "\"" + str(i) + "," + str(j+1) + "\"\n"
                 if j>0:    
@@ -179,7 +180,7 @@ class ListaEnLista:
                 rank += "\""+ str(i) + "," + str(j) +"\"; "
             string += rank +"}"
         string += "}"  + "\n"
-        print(string)
+        return string
 
     def buscar(self, listaX, x, y, limX, limY):
         tempXHead = listaX.head
@@ -202,6 +203,7 @@ class ListaEnLista:
                 cont += 1
 
 
+import os
 class Matriz:
     def __init__(self, x, y) -> None:
         self.x = x-1
@@ -225,7 +227,13 @@ class Matriz:
 
     def generarDot(self):
         listaTemporal = ListaEnLista()
-        listaTemporal.generarDot(self.listaX, self.listaY, self.x, self.y)
+        estructura = listaTemporal.generarDot(self.listaX, self.listaY, self.x, self.y)
+        f = open("matriz.dot", "w")
+        f.write(estructura)
+        f.close()
+
+        os.system("dot -Tjpg matriz.dot -o matriz.png")
+        os.startfile("matriz.png")
 
     def buscar(self, x, y) -> NodoLista:
         listaTemporal = ListaEnLista()

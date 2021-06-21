@@ -21,6 +21,7 @@ class Juego:
         self.limY = n
         self.tableroMatriz = Matriz(m,n)
         self.oportunidad = 1
+        self.turnosPerdidos = 0
     
     def definirJugador(self, nick, color):
         if  self.j1:
@@ -39,7 +40,7 @@ class Juego:
         self.piezaActual = self.generarPieza()
 
     def generarPieza(self):
-        return random.randint(5,5)
+        return random.randint(1,6)
 
     def colocarPieza(self, x, y, pieza, turno, tablero):
         permitido = self.espaciosDisponibles() > 15
@@ -96,7 +97,7 @@ class Juego:
             permitido &= self.tableroMatriz.buscar(x+3, y) == None
             permitido &= self.evaluarAlrededor(x+3, y, turno)
         elif pieza == 6:
-            rangoY = 4
+            rangoY = 5
             permitido &= x+rangoX <= self.limX
             permitido &= y+rangoY <= self.limY
             for i in range(y, y+rangoY):
@@ -156,11 +157,12 @@ class Juego:
             elif pieza == 6:
                 for i in range(y, y+rangoY):
                     self.colocarEnTabla(x, i, tablero)
-
+            self.turnosPerdidos = 0
             self.cambioDeTurno()
         else:
             self.oportunidad += 1
             if self.oportunidad > 2:
+                self.turnosPerdidos += 1
                 self.cambioDeTurno()
 
     def colocarEnTabla(self, x, y, tablero):
@@ -188,11 +190,11 @@ class Juego:
         for j in range(0, self.limY+1):
                 for i in range(0, self.limX+1):
                     temp = self.tableroMatriz.buscar(i, j)
-                    if temp is None:
-                        contDisponibles += 1
+                    if temp:
+                        contDisponibles -= 1
         return contDisponibles
 
-    def ganador(self):
+    def ganador(self) -> Jugador:
         cont1 = 0
         cont2 = 0
         for j in range(0, self.limY+1):
@@ -210,9 +212,12 @@ class Juego:
         if cont1 > cont2:
             self.j1.puntaje = cont1
             return self.j1
-        else:
+        elif cont1<cont2:
             self.j2.puntaje = cont2
             return self.j2
+        else:
+            return None
+        
 
 
 #            self.tablero.agregar(x,y,turno)

@@ -14,9 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 300)
+        Dialog.resize(474, 300)
         self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 350, 91))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 456, 111))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -33,6 +33,9 @@ class Ui_Dialog(object):
         self.label_4 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label_4.setObjectName("label_4")
         self.verticalLayout.addWidget(self.label_4)
+        self.label_7 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label_7.setObjectName("label_7")
+        self.verticalLayout.addWidget(self.label_7)
         self.label_5 = QtWidgets.QLabel(Dialog)
         self.label_5.setGeometry(QtCore.QRect(140, 220, 121, 16))
         self.label_5.setObjectName("label_5")
@@ -49,7 +52,8 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "Reglas:"))
         self.label_2.setText(_translate("Dialog", "2 personas por partida"))
         self.label_3.setText(_translate("Dialog", "Cada jugador cuenta con un color diferente (Azul y Amarillo por defecto)"))
-        self.label_4.setText(_translate("Dialog", "Las piezas de un mismo jugador no pueden tocar sus lados"))
+        self.label_4.setText(_translate("Dialog", "Las piezas de un mismo jugador no pueden tocar sus lados, solamente sus esquinas"))
+        self.label_7.setText(_translate("Dialog", "El juego termina cuando ya no sea posible colocar una pieza o hayan pasado 3 intentos fallidos"))
         self.label_5.setText(_translate("Dialog", "Daniel Albizurez"))
         self.label_6.setText(_translate("Dialog", "201731241 - 2991470610101"))
 

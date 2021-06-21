@@ -8,6 +8,7 @@ class Jugador:
         self.nick = nick
         self.valor = valor
         self.color = color
+        self.puntaje = 0
 
 class Juego:
     def __init__(self, m, n) -> None:
@@ -38,10 +39,10 @@ class Juego:
         self.piezaActual = self.generarPieza()
 
     def generarPieza(self):
-        return random.randint(1,6)
+        return random.randint(5,5)
 
     def colocarPieza(self, x, y, pieza, turno, tablero):
-        permitido = True
+        permitido = self.espaciosDisponibles() > 15
         rangoX = 0
         rangoY = 0
         if pieza == 1:
@@ -76,13 +77,16 @@ class Juego:
                 permitido &= self.tableroMatriz.buscar(i, y) == None            
                 permitido &= self.evaluarAlrededor(i, y, turno)
         elif pieza == 4:
+            permitido &= x+1<self.limX
+            permitido &= y+1<self.limY
             for i in range(x, x+2):
                 for j in range(y, y+2):
                     permitido &= self.tableroMatriz.buscar(i, j) == None
                     permitido &= self.evaluarAlrededor(i, j, turno)
         elif pieza == 5:
             permitido &= y>0
-
+            permitido &= x+3<self.limX
+            
             for i in range(x+1, x+3):
                 for j in range(y-1, y+1):
                     permitido &= self.tableroMatriz.buscar(i, j) == None
@@ -159,7 +163,6 @@ class Juego:
             if self.oportunidad > 2:
                 self.cambioDeTurno()
 
-
     def colocarEnTabla(self, x, y, tablero):
         self.tableroMatriz.agregar(x, y, self.turno)
         tablero.setItem(y,x,QTableWidgetItem(self.turno))
@@ -179,6 +182,37 @@ class Juego:
         arriba = self.tableroMatriz.buscar(x, y+1)
         permitido &= arriba.data != turno if arriba else True
         return permitido
+
+    def espaciosDisponibles(self):
+        contDisponibles = self.limX * self.limY
+        for j in range(0, self.limY+1):
+                for i in range(0, self.limX+1):
+                    temp = self.tableroMatriz.buscar(i, j)
+                    if temp is None:
+                        contDisponibles += 1
+        return contDisponibles
+
+    def ganador(self):
+        cont1 = 0
+        cont2 = 0
+        for j in range(0, self.limY+1):
+            for i in range(0, self.limX+1):
+                temp = self.tableroMatriz.buscar(i, j)
+                if temp:
+                    if temp.data == 1:
+                        cont1 += 1
+                    elif temp.data == 2:
+                        cont2 += 1
+        cont1 /= 4
+        cont2 /= 4
+        cont1 = round(cont1)
+        cont2 = round(cont2)
+        if cont1 > cont2:
+            self.j1.puntaje = cont1
+            return self.j1
+        else:
+            self.j2.puntaje = cont2
+            return self.j2
 
 
 #            self.tablero.agregar(x,y,turno)

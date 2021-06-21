@@ -37,7 +37,7 @@ class Modif(QtWidgets.QDialog, modificar.Ui_Dialog):
         self.buttonG2.addButton(self.azul2,1)
         self.buttonG2.addButton(self.amarillo2,2)
         self.buttonG2.addButton(self.rojo2,3)
-        self.buttonG2.addButton(self.verde2,3)
+        self.buttonG2.addButton(self.verde2,4)
 
     """ def agregar(self):     
         x = int(self.spinX.text())

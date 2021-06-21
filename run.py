@@ -5,45 +5,10 @@ import ventana
 import block
 
 def main():
-    app = QApplication(sys.argv)
-    form = ventana.Principal()
-    """ juego = block.Juego(10, 10)
-    definirTablero(form, 10,10)
+    app = QApplication(sys.argv)    
+    nuevaPartida(app)
+    app.exec_()
 
-    juego.definirJugador("hola", "blue")
-    juego.definirJugador("a", "yellow")
-    juego.cambioDeTurno() """
-    juego = modificar()
-    cont = 0
-    while juego is None:
-        juego = modificar()
-        cont += 1
-        if cont >= 2:
-            break
-    if juego:
-        juego.cambioDeTurno()
-        mostrarPieza(juego.piezaActual, form.labelPieza, form.labelTurno, juego.jugadorEnTurno)
-        definirTablero(form, juego.limX, juego.limY)
-
-        form.pushButton.clicked.connect(lambda: juego.colocarPieza(
-            int(form.spinX.text())-1,
-            int(form.spinY.text())-1,
-            juego.piezaActual,
-            juego.turno,
-            form.tableWidget
-        ))
-        form.pushButton.clicked.connect(lambda: mostrarPieza(
-            juego.piezaActual,
-            form.labelPieza,
-            form.labelTurno,
-            juego.jugadorEnTurno
-            ))
-
-        form.actionReglas.triggered.connect(ayuda)
-        #form.actionNueva.triggered.connect(modificar)
-        #form.pushButton.clicked.connect(juego.tableroMatriz.generarDot)
-        form.show()
-        app.exec_()
 
 def definirTablero(form,x, y):
     form.spinX.setMaximum(x)
@@ -100,6 +65,48 @@ def definirColor(buttonGroup):
     elif buttonGroup.checkedId() == 4:
         color = "green"
     return color
+
+def nuevaPartida(app):
+    app.closeAllWindows()
+    
+    form = ventana.Principal()
+    """ juego = block.Juego(10, 10)
+    definirTablero(form, 10,10)
+
+    juego.definirJugador("hola", "blue")
+    juego.definirJugador("a", "yellow")
+    juego.cambioDeTurno() """
+    juego = modificar()
+    cont = 0
+    while juego is None:
+        juego = modificar()
+        cont += 1
+        if cont >= 2:
+            break
+    if juego:
+        juego.cambioDeTurno()
+        mostrarPieza(juego.piezaActual, form.labelPieza, form.labelTurno, juego.jugadorEnTurno)
+        definirTablero(form, juego.limX, juego.limY)
+
+        form.pushButton.clicked.connect(lambda: juego.colocarPieza(
+            int(form.spinX.text())-1,
+            int(form.spinY.text())-1,
+            juego.piezaActual,
+            juego.turno,
+            form.tableWidget
+        ))
+        form.pushButton.clicked.connect(lambda: mostrarPieza(
+            juego.piezaActual,
+            form.labelPieza,
+            form.labelTurno,
+            juego.jugadorEnTurno
+            ))
+
+        form.actionReglas.triggered.connect(ayuda)
+        form.actionNueva.triggered.connect(lambda: nuevaPartida(app))
+        #form.pushButton.clicked.connect(juego.tableroMatriz.generarDot)
+        form.show()
+
 
 if __name__ =='__main__':
     main()

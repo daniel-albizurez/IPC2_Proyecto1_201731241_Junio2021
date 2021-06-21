@@ -13,6 +13,7 @@ class Juego:
     def __init__(self, m, n) -> None:
         self.j1 = None
         self.j2 = None
+        self.jugadorEnTurno = None
         self.turno = random.randint(1,2)
         self.piezaActual = self.generarPieza()
         self.limX = m

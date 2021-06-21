@@ -1,11 +1,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QButtonGroup, QTableWidgetItem
 import sys
 import interfaz
+import ayuda
+import modificar
 
-class App(QtWidgets.QMainWindow, interfaz.Ui_MainWindow):
+class Principal(QtWidgets.QMainWindow, interfaz.Ui_MainWindow):
     def __init__(self, parent = None):
-        super(App, self).__init__(parent)
+        super(Principal, self).__init__(parent)
         self.setupUi(self)
         """ self.color = "blue"
         self.pieza = 2 """
@@ -14,6 +16,28 @@ class App(QtWidgets.QMainWindow, interfaz.Ui_MainWindow):
         
         self.pushButton.clicked.connect(self.agregar) """
 
+class Ayuda(QtWidgets.QDialog, ayuda.Ui_Dialog):
+    def __init__(self, parent = None):
+        super(Ayuda, self).__init__(parent)
+        self.setModal(True)
+        self.setupUi(self)
+
+class Modif(QtWidgets.QDialog, modificar.Ui_Dialog):
+    def __init__(self, parent = None):
+        super(Modif, self).__init__(parent)
+        self.setModal(True)
+        self.setupUi(self)
+        self.buttonG1 = QButtonGroup(self)
+        self.buttonG1.addButton(self.azul1,1)
+        self.azul1.setChecked(True)
+        self.buttonG1.addButton(self.amarillo1,2)
+        self.buttonG1.addButton(self.rojo1,3)
+        self.buttonG1.addButton(self.verde1,4)
+        self.buttonG2 = QButtonGroup(self)
+        self.buttonG2.addButton(self.azul2,1)
+        self.buttonG2.addButton(self.amarillo2,2)
+        self.buttonG2.addButton(self.rojo2,3)
+        self.buttonG2.addButton(self.verde2,3)
 
     """ def agregar(self):     
         x = int(self.spinX.text())

@@ -83,8 +83,11 @@ class Ui_MainWindow(object):
         self.actionNueva.setObjectName("actionNueva")
         self.actionAbrir = QtWidgets.QAction(MainWindow)
         self.actionAbrir.setObjectName("actionAbrir")
+        self.actionReglas = QtWidgets.QAction(MainWindow)
+        self.actionReglas.setObjectName("actionReglas")
         self.menu_Partida.addAction(self.actionNueva)
         self.menu_Partida.addAction(self.actionAbrir)
+        self.menuAyuda.addAction(self.actionReglas)
         self.menubar.addAction(self.menu_Partida.menuAction())
         self.menubar.addAction(self.menuAyuda.menuAction())
 
@@ -106,6 +109,7 @@ class Ui_MainWindow(object):
         self.menuAyuda.setTitle(_translate("MainWindow", "Ayuda"))
         self.actionNueva.setText(_translate("MainWindow", "Nueva"))
         self.actionAbrir.setText(_translate("MainWindow", "Abrir"))
+        self.actionReglas.setText(_translate("MainWindow", "Reglas"))
 
 
 if __name__ == "__main__":

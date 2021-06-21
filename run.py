@@ -13,7 +13,7 @@ def main():
     juego.definirJugador("hola", "blue")
     juego.definirJugador("a", "yellow")
     juego.cambioDeTurno()
-    mostrarPieza(juego.piezaActual, form.label_3)
+    mostrarPieza(juego.piezaActual, form.labelPieza, form.labelTurno, str(juego.turno))
 
     form.pushButton.clicked.connect(lambda: juego.colocarPieza(
         int(form.spinX.text())-1,
@@ -24,7 +24,9 @@ def main():
     ))
     form.pushButton.clicked.connect(lambda: mostrarPieza(
         juego.piezaActual,
-        form.label_3
+        form.labelPieza,
+        form.labelTurno,
+        str(juego.turno)
         ))
     #form.pushButton.clicked.connect(juego.tableroMatriz.generarDot)
     form.show()
@@ -38,11 +40,12 @@ def definirTablero(form,x, y):
     form.tableWidget.setRowCount(y)
     form.tableWidget.setColumnCount(x)
 
-def mostrarPieza(pieza, label):
+def mostrarPieza(pieza, label, labelTurno, turno):
     image_path = 'C:/Users/DANIEL/Documents/U/USAC/IPC2 Vaqueras/Prueba/Grafico/piezas/'+str(pieza)+'.png' #path to your image file
     image_profile = QtGui.QImage(image_path) #QImage object
     image_profile = image_profile.scaled(513,123, aspectRatioMode=QtCore.Qt.KeepAspectRatio, transformMode=QtCore.Qt.SmoothTransformation) # To scale image for example and keep its Aspect Ration    
     label.setPixmap(QtGui.QPixmap.fromImage(image_profile))
+    labelTurno.setText("Jugador: "+turno)
 
 
 if __name__ =='__main__':

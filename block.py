@@ -18,6 +18,7 @@ class Juego:
         self.limX = m
         self.limY = n
         self.tableroMatriz = Matriz(m,n)
+        self.oportunidad = 1
     
     def definirJugador(self, nick, color):
         if  self.j1:
@@ -32,6 +33,8 @@ class Juego:
         else:
             self.jugadorEnTurno = self.j1
             self.turno = 1
+        self.oportunidad = 1
+        self.piezaActual = self.generarPieza()
 
     def generarPieza(self):
         return random.randint(1,6)
@@ -149,9 +152,12 @@ class Juego:
                 for i in range(y, y+rangoY):
                     self.colocarEnTabla(x, i, tablero)
 
-        self.cambioDeTurno()
-        self.piezaActual = self.generarPieza()
-        return permitido
+            self.cambioDeTurno()
+        else:
+            self.oportunidad += 1
+            if self.oportunidad > 2:
+                self.cambioDeTurno()
+
 
     def colocarEnTabla(self, x, y, tablero):
         self.tableroMatriz.agregar(x, y, self.turno)

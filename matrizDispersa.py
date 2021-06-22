@@ -61,17 +61,7 @@ class ListaEnLista:
         else:
             yTemp.primero = temp
         
-        """ contX = 0
-        contY = 0 """
         #Me muevo en la matriz hacia abajo (x) o derecha (y) 
-        """ while auxX and auxX.abajo != None and contX<y-1:
-            auxX = auxX.abajo
-            contX += 1 """
-        
-        """ while auxY and auxY.derecha != None and contY<x-1:
-            auxY = auxY.derecha
-            contY += 1 """
-
         while auxX and auxX.y < y and auxX.abajo != None:
             auxX = auxX.abajo
 
@@ -115,7 +105,7 @@ class ListaEnLista:
         tempYHead = listaY.head
         #Prueba de recorrido en X
 
-        print("\n Recorrido en X")
+        """ print("\n Recorrido en X")
         cont = 0
         while cont < limX:
             while tempXHead and tempXHead.posicion == cont:
@@ -131,7 +121,7 @@ class ListaEnLista:
                     string += " /\ \/ \t\t\t"
                 print(string)
                 tempXHead = tempXHead.next
-                cont += 1
+                cont += 1 """
 
         #Prueba de recorrido en Y
         print("\n Recorrido en Y")
@@ -152,9 +142,7 @@ class ListaEnLista:
                 tempYHead = tempYHead.next
                 cont += 1
 
-    def generarDot(self, listaX, listaY, limX, limY):
-        tempYHead = listaY.head
-        cont = 0
+    def generarDot(self, listaX, limX, limY):
         string = "digraph {node [shape = box]"
 
         for j in range(0, limY+1):
@@ -202,6 +190,20 @@ class ListaEnLista:
                 tempXHead = tempXHead.next
                 cont += 1
 
+    def imprimirCompleta(self, listaX, limX, limY):
+        string = ""
+        for j in range(0, limY+1):
+            for i in range(0, limX+1):
+                temp = self.buscar(listaX, i, j, limX, limY)
+                data = ""
+                if temp:
+                    data = str(temp.data)
+                else:
+                    data = "-"
+                string += data
+            string += "\n"
+        return string
+
 
 import os
 class Matriz:
@@ -243,6 +245,13 @@ class Matriz:
         else:
             print("Coordenada inexistente") """
         return temp
+
+    def imprimir(self):
+        listaTemporal = ListaEnLista()
+        string = listaTemporal.imprimirCompleta(self.listaX, self.x, self.y)
+        #print(string)
+        return string
+
 
     def __getitem__(self, key):
         return self.buscar(key[0], key[1])

@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QTableWidgetItem
 import sys
 import ventana
 import block
+import xmlManager
 
 class Main:
     def __init__(self) -> None:
@@ -14,7 +15,6 @@ class Main:
         app = QApplication(sys.argv)    
         self.nuevaPartida(app)
         app.exec_()
-
 
     def definirTablero(self, form,x, y):
         form.spinX.setMaximum(x)
@@ -38,8 +38,6 @@ class Main:
                 self.form.pushButton.setText("El ganador es: " + ganador.nick + " con puntos " + str(ganador.puntaje))
             else:
                 self.form.pushButton.setText("Empate")
-
-        
 
     def ayuda(self):
         modal = ventana.Ayuda()
@@ -119,10 +117,35 @@ class Main:
 
             self.form.actionReglas.triggered.connect(self.ayuda)
             self.form.actionNueva.triggered.connect(lambda: self.nuevaPartida(app))
+            #self.form.actionAbrir.triggered.connect(self.guardarPartida)
+            self.form.actionAbrir.triggered.connect(self.abrirPartida)
             #form.pushButton.clicked.connect(juego.tableroMatriz.generarDot)
             self.form.show()
 
+    def abrirPartida(self):
+        manager = xmlManager.Manager
+        self.juego = manager.read("partida1.xml")
+        self.definirTablero(self.form, self.juego.limX, self.juego.limY)
+        imagen = self.juego.imagen
+        y = 0
+        x = 0
+        for i in range(len(imagen)):
+            dato = imagen[i]
+            if dato == '\n':
+                y += 1
+                x = 0
+            elif  dato != '-':
+                color = ""
+                if dato == '1':
+                    color = self.juego.j1.color
+                elif dato == '2':
+                    color = self.juego.j2.color
+                self.juego.colocarEnTabla(x, y, int(dato),color , self.form.tableWidget)
+                x += 1
 
+    def guardarPartida(self):
+        manager = xmlManager.Manager
+        manager.write(self.juego, "partida1")
 if __name__ =='__main__':
     principal = Main()
     principal.main()

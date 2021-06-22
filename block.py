@@ -107,11 +107,11 @@ class Juego:
         if permitido:           
             if pieza == 1:
                 for i in range(y, y+4):
-                    self.colocarEnTabla(x, i, tablero)
+                    self.colocarEnTabla(x, i, self.turno, self.jugadorEnTurno.color, tablero)
                 """ for i in range(x, x+2):
                     #self.tableroMatriz.agregar(i, y+3, turno)
                     self.colocarEnTabla(i, y+3, tablero) """
-                self.colocarEnTabla(x+1, y+3, tablero)
+                self.colocarEnTabla(x+1, y+3, self.turno, self.jugadorEnTurno.color, tablero)
             elif pieza == 2:
                 for i in range(y, y+4):
                     """ self.tableroMatriz.agregar(x+1, i, turno)
@@ -119,7 +119,7 @@ class Juego:
                     tablero.item(i,x+1).setBackground(QtGui.QColor(self.jugadorEnTurno.color))
                     tablero.item(i,x+1).setForeground(QtGui.QColor(self.jugadorEnTurno.color))
                     tablero.item(i,x+1).setFlags(QtCore.Qt.ItemIsEnabled) """
-                    self.colocarEnTabla(x, i, tablero)
+                    self.colocarEnTabla(x, i, self.turno, self.jugadorEnTurno.color, tablero)
                 """ for i in range(x, x+2):
                     self.colocarEnTabla(i, y+3, tablero)
                     self.tableroMatriz.agregar(i, y+3, turno)
@@ -128,10 +128,10 @@ class Juego:
                     tablero.item(y+3,i).setBackground(QtGui.QColor(self.jugadorEnTurno.color))
                     tablero.item(y+3,i).setForeground(QtGui.QColor(self.jugadorEnTurno.color))
                     tablero.item(y+3,i).setFlags(QtCore.Qt.ItemIsEnabled) """
-                self.colocarEnTabla(x-1, y+3, tablero)
+                self.colocarEnTabla(x-1, y+3, self.turno, self.jugadorEnTurno.color, tablero)
             elif pieza == 3:
                 for i in range(x, x+rangoX):
-                    self.colocarEnTabla(i, y, tablero)
+                    self.colocarEnTabla(i, y, self.turno, self.jugadorEnTurno.color, tablero)
                     """ self.tableroMatriz.agregar(i, y, turno)
                     tablero.setItem(y,i,QTableWidgetItem(turno))
                     tablero.setItem(y,i,QTableWidgetItem(turno))
@@ -141,7 +141,7 @@ class Juego:
             elif pieza == 4:
                 for i in range(x, x+2):
                     for j in range(y, y+2):
-                        self.colocarEnTabla(i, j, tablero)
+                        self.colocarEnTabla(i, j, self.turno, self.jugadorEnTurno.color, tablero)
                         """ self.tableroMatriz.agregar(i, j, turno)
                         tablero.setItem(j,i,QTableWidgetItem(turno))
                         tablero.setItem(j,i,QTableWidgetItem(turno))
@@ -151,12 +151,12 @@ class Juego:
             elif pieza == 5:
                 for i in range(x+1, x+3):
                     for j in range(y-1, y+1):
-                        self.colocarEnTabla(i,j, tablero)
-                self.colocarEnTabla(x, y, tablero)
-                self.colocarEnTabla(x+3, y, tablero)
+                        self.colocarEnTabla(i,j, self.turno, self.jugadorEnTurno.color, tablero)
+                self.colocarEnTabla(x, y, self.turno, self.jugadorEnTurno.color, tablero)
+                self.colocarEnTabla(x+3, y, self.turno, self.jugadorEnTurno.color, tablero)
             elif pieza == 6:
                 for i in range(y, y+rangoY):
-                    self.colocarEnTabla(x, i, tablero)
+                    self.colocarEnTabla(x, i, self.turno, self.jugadorEnTurno.color, tablero)
             self.turnosPerdidos = 0
             self.cambioDeTurno()
         else:
@@ -165,12 +165,12 @@ class Juego:
                 self.turnosPerdidos += 1
                 self.cambioDeTurno()
 
-    def colocarEnTabla(self, x, y, tablero):
-        self.tableroMatriz.agregar(x, y, self.turno)
-        tablero.setItem(y,x,QTableWidgetItem(self.turno))
-        tablero.setItem(y,x,QTableWidgetItem(self.turno))
-        tablero.item(y,x).setBackground(QtGui.QColor(self.jugadorEnTurno.color))
-        tablero.item(y,x).setForeground(QtGui.QColor(self.jugadorEnTurno.color))
+    def colocarEnTabla(self, x, y, dato, color, tablero):
+        self.tableroMatriz.agregar(x, y, dato)
+        tablero.setItem(y,x,QTableWidgetItem(dato))
+        tablero.setItem(y,x,QTableWidgetItem(dato))
+        tablero.item(y,x).setBackground(QtGui.QColor(color))
+        tablero.item(y,x).setForeground(QtGui.QColor(color))
         tablero.item(y,x).setFlags(QtCore.Qt.ItemIsEnabled)
 
     def evaluarAlrededor(self, x, y, turno):

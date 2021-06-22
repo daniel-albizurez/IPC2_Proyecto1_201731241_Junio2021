@@ -12,7 +12,7 @@ class Manager:
         color2 = matrices[0][4].text
         imagen = matrices[0][5].text
 
-        juego = Juego(filas, columnas)
+        juego = Juego(columnas, filas)
 
         juego.definirJugador("J1", color1)
         juego.definirJugador("J2", color2)
@@ -45,7 +45,7 @@ class Manager:
         nodoImagen.text = imagen
 
         stringData = ET.tostring(matrices, encoding='unicode', method='xml')
-        f = open(nombre+".xml", "w")
+        f = open(nombre, "w")
         f.write(stringData)
         f.close()
         

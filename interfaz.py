@@ -85,7 +85,10 @@ class Ui_MainWindow(object):
         self.actionAbrir.setObjectName("actionAbrir")
         self.actionReglas = QtWidgets.QAction(MainWindow)
         self.actionReglas.setObjectName("actionReglas")
+        self.actionGuardar = QtWidgets.QAction(MainWindow)
+        self.actionGuardar.setObjectName("actionGuardar")
         self.menu_Partida.addAction(self.actionNueva)
+        self.menu_Partida.addAction(self.actionGuardar)
         self.menu_Partida.addAction(self.actionAbrir)
         self.menuAyuda.addAction(self.actionReglas)
         self.menubar.addAction(self.menu_Partida.menuAction())
@@ -110,6 +113,7 @@ class Ui_MainWindow(object):
         self.actionNueva.setText(_translate("MainWindow", "Nueva"))
         self.actionAbrir.setText(_translate("MainWindow", "Abrir"))
         self.actionReglas.setText(_translate("MainWindow", "Reglas"))
+        self.actionGuardar.setText(_translate("MainWindow", "Guardar"))
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtWidgets import QApplication, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QFileDialog, QTableWidgetItem
 import sys
 import ventana
 import block
@@ -21,6 +21,8 @@ class Main:
         form.spinY.setMaximum(y)
         form.spinX.setMinimum(1)
         form.spinY.setMinimum(1)
+        while form.tableWidget.rowCount()>0:
+            form.tableWidget.removeRow(0)
         form.tableWidget.setRowCount(y)
         form.tableWidget.setColumnCount(x)
 
@@ -117,23 +119,26 @@ class Main:
 
             self.form.actionReglas.triggered.connect(self.ayuda)
             self.form.actionNueva.triggered.connect(lambda: self.nuevaPartida(app))
-            #self.form.actionAbrir.triggered.connect(self.guardarPartida)
+            self.form.actionGuardar.triggered.connect(self.guardarPartida)
             self.form.actionAbrir.triggered.connect(self.abrirPartida)
             #form.pushButton.clicked.connect(juego.tableroMatriz.generarDot)
             self.form.show()
 
     def abrirPartida(self):
+        nombre = QFileDialog.getOpenFileName(self.form, 'Abrir partida', 'c:\\', 'XML (*.xml)')
+
         manager = xmlManager.Manager
-        self.juego = manager.read("partida1.xml")
+        self.juego = manager.read(nombre[0])
         self.definirTablero(self.form, self.juego.limX, self.juego.limY)
         imagen = self.juego.imagen
         y = 0
-        x = 0
+        x = -1
         for i in range(len(imagen)):
             dato = imagen[i]
+            x += 1
             if dato == '\n':
                 y += 1
-                x = 0
+                x = -1
             elif  dato != '-':
                 color = ""
                 if dato == '1':
@@ -141,11 +146,14 @@ class Main:
                 elif dato == '2':
                     color = self.juego.j2.color
                 self.juego.colocarEnTabla(x, y, int(dato),color , self.form.tableWidget)
-                x += 1
+            self.juego.cambioDeTurno()
+            self.mostrarPieza(self.juego.piezaActual, self.form.labelPieza, self.form.labelTurno, self.juego.jugadorEnTurno)
 
     def guardarPartida(self):
+        nombre = QFileDialog.getSaveFileName(self.form, 'Abrir partida', 'c:\\', 'XML (*.xml)')
+
         manager = xmlManager.Manager
-        manager.write(self.juego, "partida1")
+        manager.write(self.juego, nombre[0])
 if __name__ =='__main__':
     principal = Main()
     principal.main()
